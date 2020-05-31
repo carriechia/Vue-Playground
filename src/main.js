@@ -41,6 +41,13 @@ const router = new VueRouter({
   }
 })
 
+router.beforeEach((to, from, next) => {
+    if (to.path !== '/login' && !localStorage.token && to.path !== '/register') {
+        return next('/login')
+    }
+    next()
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

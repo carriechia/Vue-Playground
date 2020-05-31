@@ -38,7 +38,7 @@ import {login} from '@/api/member'
         }
         login(member).then(res => {
             if (res.success) {
-                localStorage.setItem('token', res.data.data.token)
+                localStorage.setItem('token', res.data.token)
                 location.replace('/')
             } else {
                 alert(res.msg)
