@@ -29,10 +29,10 @@ import './registerServiceWorker'
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
 Vue.use(VueResource);
-
 // configure router
 const router = new VueRouter({
   routes, // short for routes: routes
+  mode: 'history', // 去掉#
   linkActiveClass: 'nav-item active',
   scrollBehavior: (to) => {
     if (to.hash) {
