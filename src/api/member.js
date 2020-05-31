@@ -11,7 +11,7 @@ export function login(member) {
 
   return axios.post(url, data).then(response => {
         return new Promise((resolve, reject) => {
-            jwt.verify(response.token, 'my_secret_key', (err, payload) => {
+            jwt.verify(response.token, 'JWT_TOKEN', (err, payload) => {
               if (err) {
                 reject(err); // 驗證失敗回傳錯誤
               } else {

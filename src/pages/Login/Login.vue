@@ -1,26 +1,26 @@
 <template>
-  <div id="register_form">
-    <form class="form-signin" @submit="singin" @reset="onReset">
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" v-model="form.email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password"v-model="form.password"  id="inputPassword" class="form-control" placeholder="Password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <button class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
-    </form>
-  </div>
+    <div id="register_form">
+        <form class="form-signin" @submit="singin" @reset="onReset">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" v-model="form.email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password"v-model="form.password"  id="inputPassword" class="form-control" placeholder="Password" required>
+        <div class="checkbox mb-3">
+            <label>
+            <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
+        </form>
+    </div>
 </template>
 
 <script>
 import {login} from '@/api/member'
 
-  export default {
+export default {
     data() {
       return {
         form: {
@@ -30,31 +30,46 @@ import {login} from '@/api/member'
       }
     },
     methods: {
-      singin() {
-        var self = this;
-        const member = {
-            email: self.form.email,
-            password: self.form.password
-        }
-        login(member).then(res => {
-            if (res.success) {
-                localStorage.setItem('token', res.data.token)
-                location.replace('/')
-            } else {
-                alert(res.msg)
+        singin() {
+            var self = this;
+            const member = {
+                email: self.form.email,
+                password: self.form.password
             }
-        }).catch(err => {
-            throw err
-        })
-    },
-    onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.password = ''
-      }
+            if (member.email === "admin@admin.com" && member.password === "admin") {
+                localStorage.setItem('JWT_TOKEN', true);
+                this.notifyVue('Login Success!', 'info')
+                this.$router.push('/')
+            } else {
+                this.notifyVue('Login Failed!', 'danger')
+                this.onReset();
+            }
+            // login(member).then(res => {
+
+            //     if (res.success) {
+            //         localStorage.setItem('token', res.data.token)
+            //         location.replace('/')
+            //     } else {
+            //         alert(res.msg)
+            //     }
+            // }).catch(err => {
+            //     throw err
+            // })
+        },
+        onReset() {
+            // Reset our form values
+            this.form.email = ''
+            this.form.password = ''
+        },
+        notifyVue (info, typeName) {
+            this.$notifications.notify(
+            {
+                message: '<span>' + info + '</span>',
+                type: typeName
+            })
+        }
     }
-  }
+}
 </script>
 <style scoped>
 html,

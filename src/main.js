@@ -13,6 +13,7 @@
  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
  */
+import VueResource from 'vue-resource';
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App.vue'
@@ -27,6 +28,7 @@ import './registerServiceWorker'
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
+Vue.use(VueResource);
 
 // configure router
 const router = new VueRouter({
@@ -42,7 +44,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.path !== '/login' && !localStorage.token && to.path !== '/register') {
+    var token = localStorage.getItem("JWT_TOKEN");
+    if (to.path !== '/login' && !token && to.path !== '/register') {
         return next('/login')
     }
     next()

@@ -29,14 +29,31 @@
 
     <li class="nav-item">
       <a class="nav-link" href="#pablo">
-        <span class="no-icon">Log out</span>
+        <span class="no-icon" v-if="isLoggedIn" @click.prevent="logout">Log out</span>
       </a>
     </li>
   </ul>
 </template>
 <script>
   export default {
-    name: 'mobile-menu'
+    name: 'mobile-menu',
+    computed : {
+        isLoggedIn : function(){
+            return localStorage.getItem("JWT_TOKEN");
+            // return this.$store.getters.isLoggedIn
+        }
+    },
+    methods: {
+        logout(){
+            console.log(1)
+            localStorage.removeItem('JWT_TOKEN')
+            this.$router.push('/login')
+            // this.$store.dispatch('logout')
+            // .then(() => {
+            //     this.$router.push('/login')
+            // })
+        }
+    }
   }
 </script>
 <style>

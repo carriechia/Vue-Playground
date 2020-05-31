@@ -55,7 +55,10 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+          <router-link to="/admin/register">Register</router-link>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link" v-if="isLoggedIn" @click.prevent="logout">
               Log out
             </a>
           </li>
@@ -70,7 +73,11 @@
       routeName () {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
-      }
+      },
+      isLoggedIn : function(){
+            return localStorage.getItem("JWT_TOKEN");
+            // return this.$store.getters.isLoggedIn
+        }
     },
     data () {
       return {
@@ -78,21 +85,37 @@
       }
     },
     methods: {
-      capitalizeFirstLetter (string) {
+        capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
-      },
-      toggleNotificationDropDown () {
+        },
+        toggleNotificationDropDown () {
         this.activeNotifications = !this.activeNotifications
-      },
-      closeDropDown () {
+        },
+        closeDropDown () {
         this.activeNotifications = false
-      },
-      toggleSidebar () {
+        },
+        toggleSidebar () {
         this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
-      },
-      hideSidebar () {
+        },
+        hideSidebar () {
         this.$sidebar.displaySidebar(false)
-      }
+        },
+        logout(){
+                localStorage.removeItem('JWT_TOKEN')
+                this.notifyVue('Logout Success!', 'info')
+                this.$router.push('/login')
+                // this.$store.dispatch('logout')
+                // .then(() => {
+                //     this.$router.push('/login')
+                // })
+        },
+        notifyVue (info, typeName) {
+            this.$notifications.notify(
+            {
+                message: '<span>' + info + '</span>',
+                type: typeName
+            })
+        }
     }
   }
 

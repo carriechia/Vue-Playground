@@ -12,6 +12,7 @@ import Maps from 'src/pages/Maps.vue'
 import Notifications from 'src/pages/Notifications.vue'
 import Upgrade from 'src/pages/Upgrade.vue'
 import Login from 'src/pages/Login/Login.vue'
+import Register from 'src/pages/Register/Register.vue'
 
 const routes = [
     {
@@ -67,7 +68,11 @@ const routes = [
         path: 'upgrade',
         name: 'Upgrade to PRO',
         component: Upgrade
-      }
+      },
+    {
+        path: 'register',
+        component: Register,
+    },
     ]
   },
   { path: '*', component: NotFound }
