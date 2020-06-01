@@ -833,7 +833,7 @@
     "@vue/component-compiler-utils" "^2.5.2"
     "@vue/preload-webpack-plugin" "^1.1.0"
     "@vue/web-component-wrapper" "^1.2.0"
-    acorn "^6.0.6"
+    acorn "6.4.1"
     acorn-walk "^6.1.1"
     address "^1.0.3"
     autoprefixer "^9.4.7"
