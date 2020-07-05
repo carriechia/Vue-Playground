@@ -44,31 +44,11 @@
         methods: {
             init: function () {
                 list().then(res => {
-                    this.tableList.data = res
+                    this.tableList.data = res["data"]
                 }).catch(err => {
                     alert(err)
                     throw err
                 })
-                // this.$api.member.list().then(res => {
-                //     this.items = res.data
-                // });
-            // let self = this
-            // this.$axios.get('/api/posts')
-            //     .then(function (response) {
-            //         if (response.status === "Y") {
-            //             self.items = self.testData
-            //         }
-            //     })
-            //     .catch(function (response) {
-            //         console.log(response)
-            //     })
-
-            // list().then(res => {
-            //     this.items = res
-            // }).catch(err => {
-            //     alert(err)
-            //     throw err
-            // })
             },
         },
         mounted: function () {

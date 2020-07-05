@@ -1,29 +1,32 @@
-import jwt from 'jsonwebtoken';
 import axios from 'axios'
+import http from './http';
 
 /**
  * 登入會員
  * @param {*} member 登入資料
  */
 export function login(member) {
-  const url = 'api/login'
-  const data = Object.assign({}, member)
+    const url = 'api/auth/login'
+    const data = Object.assign({}, member)
 
-  return axios.post(url, data).then(response => {
-        return new Promise((resolve, reject) => {
-            jwt.verify(response.token, 'my_secret_key', (err, payload) => {
-              if (err) {
-                reject(err); // 驗證失敗回傳錯誤
-              } else {
-                resolve(payload); // 驗證成功回傳 payload data
-              }
-            });
-        });
-    //   return Promise.resolve(response.data)
+    return http.post(url, data).then(response => {
+        return Promise.resolve(response.data)
     }).catch(err => {
-      throw err
+        throw err
     })
 }
+
+/**
+ * 登出會員
+ */
+export function logout() {
+      const url = '/api/auth/logout'
+      return http.post(url).then(response => {
+          return Promise.resolve(response.data)
+        }).catch(err => {
+          throw err
+        })
+    }
 
 /**
  * 註冊會員
@@ -49,12 +52,9 @@ export function register(member) {
  */
 export function list() {
     const url = '/api/members'
-    return axios
-      .get(url)
-      .then(response => {
+    return http.get(url).then(response => {
         return Promise.resolve(response.data)
-      })
-      .catch(err => {
+      }).catch(err => {
         throw err
       })
 }

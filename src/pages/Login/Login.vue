@@ -37,11 +37,12 @@ import {login} from '@/api/member'
             password: self.form.password
         }
         login(member).then(res => {
-            if (res.success) {
-                localStorage.setItem('token', res.data.data.token)
+            console.log(res)
+            if (res.status === 0) {
+                localStorage.setItem('token', res.token)
                 location.replace('/')
             } else {
-                alert(res.msg)
+                alert("Login Faild.")
             }
         }).catch(err => {
             throw err

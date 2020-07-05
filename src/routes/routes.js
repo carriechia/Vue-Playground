@@ -14,14 +14,15 @@ import Upgrade from 'src/pages/Upgrade.vue'
 import Login from 'src/pages/Login/Login.vue'
 
 const routes = [
-    {
-        path: '/login',
-        component: Login,
-    },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login,
+  },
   {
     path: '/',
     component: DashboardLayout,
-    redirect: '/admin/overview'
+    redirect: '/admin/overview',
   },
   {
     path: '/admin',
@@ -31,17 +32,26 @@ const routes = [
       {
         path: 'overview',
         name: 'Overview',
-        component: Overview
+        component: Overview,
+        meta: {
+            requireAuth: true,
+        },
       },
       {
         path: 'user',
         name: 'User',
-        component: UserProfile
+        component: UserProfile,
+        meta: {
+            requireAuth: true,
+        },
       },
       {
         path: 'table-list',
         name: 'Table List',
-        component: TableList
+        component: TableList,
+        meta: {
+            requireAuth: true,
+        },
       },
       {
         path: 'typography',

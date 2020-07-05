@@ -24,12 +24,14 @@ import LightBootstrap from './light-bootstrap-main'
 import routes from './routes/routes'
 
 import './registerServiceWorker'
+
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
 
 // configure router
 const router = new VueRouter({
+//   mode: 'history', // 去掉#
   routes, // short for routes: routes
   linkActiveClass: 'nav-item active',
   scrollBehavior: (to) => {
@@ -40,6 +42,24 @@ const router = new VueRouter({
     }
   }
 })
+
+router.beforeEach((to, from, next) => {
+    if (to.meta.requireAuth) {  // 判断该路由是否需要登录权限
+      if (localStorage.token) {  // 获取当前的token是否存在
+        console.log("has token");
+        next();
+      } else {
+        console.log("miss token");
+        next({
+          path: '/login', // 将跳转的路由path作为参数，登录成功后跳转到该路由
+          query: {redirect: to.fullPath}
+        })
+      }
+    }
+    else { // 如果不需要权限校验，直接进入路由界面
+      next();
+    }
+});
 
 /* eslint-disable no-new */
 new Vue({

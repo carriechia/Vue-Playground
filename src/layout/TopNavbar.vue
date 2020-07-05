@@ -55,8 +55,8 @@
             <a class="dropdown-item" href="#">Separated link</a>
           </base-dropdown>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              Log out
+            <a @click.prevent="signout" class="nav-link" v-if="isLoggedIn">
+              Logout
             </a>
           </li>
         </ul>
@@ -65,12 +65,18 @@
   </nav>
 </template>
 <script>
+import {logout} from '@/api/member'
+
   export default {
     computed: {
       routeName () {
         const {name} = this.$route
         return this.capitalizeFirstLetter(name)
-      }
+      },
+      isLoggedIn : function(){
+        return true
+        // return this.$store.getters.isLoggedIn
+      },
     },
     data () {
       return {
@@ -78,6 +84,20 @@
       }
     },
     methods: {
+      signout(){
+        var token = localStorage.getItem("token")
+        logout(token).then(res => {
+            if (res.status === 0) {
+                localStorage.removeItem('token')
+                alert(res.message)
+                this.$router.push('/login')
+            } else {
+                alert("Logout Faild.")
+            }
+        }).catch(err => {
+            throw err
+        })
+      },
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)
       },
