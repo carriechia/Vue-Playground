@@ -1,6 +1,6 @@
 <template>
   <div id="register_form">
-    <form class="form-signin" @submit="singin" @reset="onReset">
+    <form class="form-signin">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
       <input type="email" v-model="form.email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
@@ -11,9 +11,11 @@
           <input type="checkbox" value="remember-me"> Remember me
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <button class="btn btn-lg btn-primary btn-block" type="reset">Reset</button>
     </form>
+    <div class="login_btn">
+        <button class="btn btn-info btn-fill" v-on:click="Singin">Sign in</button>
+        <button class="btn btn-info btn-fill" v-on:click="onReset">Reset</button>
+    </div>
   </div>
 </template>
 
@@ -30,16 +32,16 @@ import {login} from '@/api/member'
       }
     },
     methods: {
-      singin() {
+      Singin() {
         var self = this;
         const member = {
             email: self.form.email,
             password: self.form.password
         }
         login(member).then(res => {
-            console.log(res)
             if (res.status === 0) {
                 localStorage.setItem('token', res.token)
+                alert("Login Success.")
                 location.replace('/')
             } else {
                 alert("Login Faild.")
@@ -62,7 +64,6 @@ html,
 body {
   height: 100%;
 }
-
 body {
   display: -ms-flexbox;
   display: flex;
@@ -101,5 +102,11 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+.login_btn {
+  text-align:center;
+}
+.login_btn button {
+    margin: 10px;
 }
 </style>
