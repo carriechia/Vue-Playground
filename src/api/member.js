@@ -12,6 +12,7 @@ export function login(member) {
     return http.post(url, data).then(response => {
         return Promise.resolve(response.data)
     }).catch(err => {
+        alert("Login Failed.")
         throw err
     })
 }
@@ -24,6 +25,7 @@ export function logout() {
       return http.post(url).then(response => {
           return Promise.resolve(response.data)
         }).catch(err => {
+          alert("Logout Failed.")
           throw err
         })
     }
@@ -34,15 +36,14 @@ export function logout() {
  */
 export function register(member) {
   const url = '/api/register'
-
   const data = Object.assign({}, member)
 
   return axios
     .post(url, data)
     .then(response => {
       return Promise.resolve(response.data)
-    })
-    .catch(err => {
+    }).catch(err => {
+      alert("Register Failed.")
       throw err
     })
 }

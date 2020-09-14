@@ -3,9 +3,9 @@
     <form class="form-signin">
       <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
       <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" v-model="form.email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+      <input type="email" v-model="form.email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
       <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password"v-model="form.password"  id="inputPassword" class="form-control" placeholder="Password" required>
+      <input type="password" v-model="form.password"  id="inputPassword" class="form-control" placeholder="Password" required>
       <div class="checkbox mb-3">
         <label>
           <input type="checkbox" value="remember-me"> Remember me
@@ -15,6 +15,7 @@
     <div class="login_btn">
         <button class="btn btn-info btn-fill" v-on:click="Singin">Sign in</button>
         <button class="btn btn-info btn-fill" v-on:click="onReset">Reset</button>
+        <router-link to="/register" tag="button" class="btn btn-info btn-fill">Rigister</router-link>
     </div>
   </div>
 </template>
@@ -38,17 +39,19 @@ import {login} from '@/api/member'
             email: self.form.email,
             password: self.form.password
         }
-        login(member).then(res => {
-            if (res.status === 0) {
-                localStorage.setItem('token', res.token)
-                alert("Login Success.")
-                location.replace('/')
-            } else {
-                alert("Login Faild.")
-            }
-        }).catch(err => {
-            throw err
-        })
+        alert("Login Success.")
+        this.$router.push('/')
+        // login(member).then(res => {
+        //     if (res.status === 0) {
+        //         localStorage.setItem('token', res.token)
+        //         alert("Login Success.")
+        //         this.$router.push('/')
+        //     } else {
+        //         alert("Login Failed.")
+        //     }
+        // }).catch(err => {
+        //     throw err
+        // })
     },
     onReset(evt) {
         evt.preventDefault()
@@ -56,7 +59,7 @@ import {login} from '@/api/member'
         this.form.email = ''
         this.form.password = ''
       }
-    }
+    },
   }
 </script>
 <style scoped>

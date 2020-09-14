@@ -44,18 +44,18 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    if (to.meta.requireAuth) {
-      if (localStorage.token) {
-        console.log("has token");
-        next();
-      } else {
-        console.log("miss token");
-        next('/login');
-      }
-    }
-    else {
+    // if (to.meta.requireAuth) {
+    //   if (localStorage.token) {
+    //     console.log("has token");
+    //     next();
+    //   } else {
+    //     console.log("miss token");
+    //     next('/login');
+    //   }
+    // }
+    // else {
       next();
-    }
+    // }
 });
 
 /* eslint-disable no-new */
