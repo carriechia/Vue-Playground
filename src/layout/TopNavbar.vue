@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Dashboard</a>
+      <a class="navbar-brand" href="#">Vue Test Project</a>
       <button type="button"
               class="navbar-toggler navbar-toggler-right"
               :class="{toggled: $sidebar.showSidebar}"
@@ -86,17 +86,19 @@ import {logout} from '@/api/member'
     methods: {
       signout(){
         var token = localStorage.getItem("token")
-        logout(token).then(res => {
-            if (res.status === 0) {
-                localStorage.removeItem('token')
-                alert(res.message)
-                this.$router.push('/login')
-            } else {
-                alert("Logout Faild.")
-            }
-        }).catch(err => {
-            throw err
-        })
+        this.$router.push('/login')
+        alert("Logout Success.")
+        // logout(token).then(res => {
+        //     if (res.status === 0) {
+        //         localStorage.removeItem('token')
+        //         alert(res.message)
+        //         this.$router.push('/login')
+        //     } else {
+        //         alert("Logout Faild.")
+        //     }
+        // }).catch(err => {
+        //     throw err
+        // })
       },
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)

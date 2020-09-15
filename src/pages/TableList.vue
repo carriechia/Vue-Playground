@@ -43,12 +43,13 @@
         },
         methods: {
             init: function () {
-                list().then(res => {
-                    this.tableList.data = res["data"]
-                }).catch(err => {
-                    alert(err)
-                    throw err
-                })
+                alert("Memeber Lists Failed.")
+                // list().then(res => {
+                //     this.tableList.data = res["data"]
+                // }).catch(err => {
+                //     alert(err)
+                //     throw err
+                // })
             },
         },
         mounted: function () {

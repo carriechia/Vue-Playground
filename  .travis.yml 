@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+- stable
+
+install:
+- npm install
+
+script:
+- npm run clean
+- npm run build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GIT_HUB_TOKEN
+  local-dir: ./dist # 將要上傳的目錄設定為 build 完之後的目錄
+
+on:
+  branch: master
