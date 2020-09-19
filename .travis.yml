@@ -9,11 +9,13 @@ install:
 script:
 - npm run build
 
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GIT_HUB_TOKEN
-  local-dir: ./dist # 將要上傳的目錄設定為 build 完之後的目錄
+after_script:
+  - cd ./dist
+  - git init
+  - git add .
+  - git commit -m "Travis auto deploy."
+  - git push --force --quiet "https://${GIT_TOKEN}@${GIT_REPOSITORY}" master:${GIT_PAGES}
 
-on:
-  branch: master
+branches:
+  only:
+    - master
