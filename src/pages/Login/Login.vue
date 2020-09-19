@@ -39,7 +39,7 @@ import {login} from '@/api/member'
             email: self.form.email,
             password: self.form.password
         }
-        alert("This is test, Login Success.!!!")
+        alert("This is test test, Login Success.!!!")
         this.$router.push('/')
         // login(member).then(res => {
         //     if (res.status === 0) {
