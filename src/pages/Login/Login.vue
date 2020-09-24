@@ -39,19 +39,17 @@ import {login} from '@/api/member'
             email: self.form.email,
             password: self.form.password
         }
-        alert("This is test test, Login Success.!!!")
-        this.$router.push('/')
-        // login(member).then(res => {
-        //     if (res.status === 0) {
-        //         localStorage.setItem('token', res.token)
-        //         alert("Login Success.")
-        //         this.$router.push('/')
-        //     } else {
-        //         alert("Login Failed.")
-        //     }
-        // }).catch(err => {
-        //     throw err
-        // })
+        login(member).then(res => {
+            if (res.status === 200) {
+                localStorage.setItem('token', res.headers.authorization)
+                alert("Login Success.")
+                this.$router.push('/')
+            } else {
+                alert("Login Failed.")
+            }
+        }).catch(err => {
+            throw err
+        })
     },
     onReset(evt) {
         evt.preventDefault()

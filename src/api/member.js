@@ -6,11 +6,11 @@ import http from './http';
  * @param {*} member 登入資料
  */
 export function login(member) {
-    const url = 'api/auth/login'
+    const url = '/api/login'
     const data = Object.assign({}, member)
 
     return http.post(url, data).then(response => {
-        return Promise.resolve(response.data)
+        return Promise.resolve(response)
     }).catch(err => {
         alert("Login Failed.")
         throw err
@@ -21,7 +21,7 @@ export function login(member) {
  * 登出會員
  */
 export function logout() {
-      const url = '/api/auth/logout'
+      const url = '/api/logout'
       return http.post(url).then(response => {
           return Promise.resolve(response.data)
         }).catch(err => {

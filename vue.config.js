@@ -12,9 +12,8 @@ module.exports = {
 		https: false,
         open: false,
 		proxy: {
-			"/api/auth": {
-				// target: "http://18.163.164.103/", //设置调用的接口域名和端口
-				target: "http://127.0.0.1:8000/", //设置调用的接口域名和端口
+			"/api/": {
+				target: "http://18.190.3.152/", //设置调用的接口域名和端口
 				changeOrigin: true, //是否跨域
 				ws:true,
 				pathRewrite: {

@@ -5,14 +5,14 @@
         <div class="col-12">
           <card class="card-plain">
             <template slot="header">
-              <h4 class="card-title">Member Lists</h4>
+              <h4 class="card-title">Member List</h4>
             </template>
-            <div class="table-responsive">
-              <l-table class="table-hover"
-                       :columns="tableList.columns"
-                       :data="tableList.data"
-                       >
-              </l-table>
+            <div>
+                <b-table striped hover :items="tableList.data" :fields="tableList.columns">
+                    <template v-slot:cell(source)="data">
+                        <h4><b-badge pill variant="success">一般註冊</b-badge></h4>
+                    </template>
+                </b-table>
             </div>
           </card>
         </div>
@@ -26,8 +26,6 @@
     import {list} from '@/api/member'
 
     //定義table欄位
-    const tableColumns = ['Email', 'Id', 'Name', 'Nickname', 'Source']
-
     export default {
         components: {
             LTable,
@@ -36,20 +34,19 @@
         data () {
         return {
             tableList: {
-                columns: [...tableColumns],
+                columns: ['email', 'id', 'name', 'nickname', 'source'],
                 data: []
             },
         }
         },
         methods: {
             init: function () {
-                alert("Memeber Lists Failed.")
-                // list().then(res => {
-                //     this.tableList.data = res["data"]
-                // }).catch(err => {
-                //     alert(err)
-                //     throw err
-                // })
+                list().then(res => {
+                    this.tableList.data = res
+                }).catch(err => {
+                    alert(err)
+                    throw err
+                })
             },
         },
         mounted: function () {

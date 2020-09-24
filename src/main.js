@@ -19,6 +19,11 @@ import App from './App.vue'
 
 // LightBootstrap plugin
 import LightBootstrap from './light-bootstrap-main'
+// Bootstrap Vue
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue';
+
+import 'bootstrap/dist/css/bootstrap.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 // router setup
 import routes from './routes/routes'
@@ -28,6 +33,10 @@ import './registerServiceWorker'
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
+// 安裝 BootstrapVue
+Vue.use(BootstrapVue);
+// 安裝 BootstrapVue icon components plugin (可選)
+Vue.use(IconsPlugin);
 
 // configure router
 const router = new VueRouter({
@@ -44,18 +53,18 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-    // if (to.meta.requireAuth) {
-    //   if (localStorage.token) {
-    //     console.log("has token");
-    //     next();
-    //   } else {
-    //     console.log("miss token");
-    //     next('/login');
-    //   }
-    // }
-    // else {
+    if (to.meta.requireAuth) {
+      if (localStorage.token) {
+        console.log("has token");
+        next();
+      } else {
+        console.log("miss token");
+        next('/login');
+      }
+    }
+    else {
       next();
-    // }
+    }
 });
 
 /* eslint-disable no-new */

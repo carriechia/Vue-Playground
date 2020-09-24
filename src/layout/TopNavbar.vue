@@ -85,11 +85,11 @@ import {logout} from '@/api/member'
     },
     methods: {
       signout(){
-        var token = localStorage.getItem("token")
+        // var token = localStorage.getItem("token")
+        localStorage.removeItem('token')
         this.$router.push('/login')
-        alert("Logout Success.")
         // logout(token).then(res => {
-        //     if (res.status === 0) {
+        //     if (res.status === 200) {
         //         localStorage.removeItem('token')
         //         alert(res.message)
         //         this.$router.push('/login')
