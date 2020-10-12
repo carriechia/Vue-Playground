@@ -12,7 +12,6 @@ export function login(member) {
     return http.post(url, data).then(response => {
         return Promise.resolve(response)
     }).catch(err => {
-        alert("Login Failed.")
         throw err
     })
 }

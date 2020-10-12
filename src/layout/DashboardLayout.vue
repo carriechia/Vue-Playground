@@ -10,7 +10,7 @@
         <i class="nc-icon nc-circle-09"></i>
         <p>User Profile</p>
       </sidebar-link>
-      <sidebar-link to="/admin/table-list">
+      <sidebar-link to="/admin/member-list">
         <i class="nc-icon nc-notes"></i>
         <p>Member List</p>
       </sidebar-link>

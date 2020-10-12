@@ -10,7 +10,12 @@
             <div>
                 <b-table striped hover :items="tableList.data" :fields="tableList.columns">
                     <template v-slot:cell(source)="data">
-                        <h4><b-badge pill variant="success">一般註冊</b-badge></h4>
+                         <template v-if="data.value==1">
+                             <h4><b-badge variant="success">一般註冊</b-badge></h4>
+                        </template>
+                        <template v-else>
+                            <h4><b-badge variant="info">非一般註冊</b-badge></h4>
+                        </template>
                     </template>
                 </b-table>
             </div>
