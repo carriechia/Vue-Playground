@@ -1,4 +1,3 @@
-import axios from 'axios'
 import http from './http';
 
 /**
@@ -37,10 +36,8 @@ export function register(member) {
   const url = '/api/register'
   const data = Object.assign({}, member)
 
-  return axios
-    .post(url, data)
-    .then(response => {
-      return Promise.resolve(response.data)
+  return http.post(url, data).then(response => {
+      return Promise.resolve(response)
     }).catch(err => {
       alert("Register Failed.")
       throw err

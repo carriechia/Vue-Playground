@@ -7,19 +7,15 @@ function resolveSrc(_path) {
 
 module.exports = {
     devServer: {
-		port: 8080,
-		host: "localhost",
-		https: false,
-        open: false,
 		proxy: {
-			"/api/": {
-				target: "http://18.190.3.152/", //设置调用的接口域名和端口
-				changeOrigin: true, //是否跨域
-				ws:true,
-				pathRewrite: {
-					"^/api": ""
-				}
-			}
+            '/api': {
+                target: 'http://18.190.3.152/',
+                ws: true,
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/api': '', //思路是如果是开发环境，就给所有要代理的接口统一加上前缀，然后代理请求时再统一通过rewrite去掉
+                }
+            },
 		}
 	},
     lintOnSave: false,

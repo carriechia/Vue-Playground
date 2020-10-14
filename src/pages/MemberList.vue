@@ -18,6 +18,9 @@
                         </template>
                     </template>
                 </b-table>
+                 <div class="mt-3">
+                    <b-pagination-nav pills size="lg" number-of-pages="10" base-url="#" align="center"></b-pagination-nav>
+                </div>
             </div>
           </card>
         </div>

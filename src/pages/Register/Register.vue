@@ -56,18 +56,30 @@ export default {
             var self = this;
             const member = {
                 email: self.user.email,
-                user: self.user.name,
+                name: self.user.name,
                 password: self.user.password
             }
             register(member).then(res => {
-                if (res.status === 0) {
-                    alert("Register Success.")
-                    this.$router.push('/login')
+                if (res.status === 200) {
+                    localStorage.setItem('token', res.headers.authorization)
+                    this.notifyVue('Register Success.', 'success');
+                    this.$router.push('/')
                 } else {
-                    alert("Register Faild.")
+                    this.notifyVue('Register Failed.', 'warning');
                 }
             }).catch(err => {
+                this.notifyVue(err.message, 'warning');
                 throw err
+            })
+        },
+        notifyVue (message, type) {
+            this.$notifications.notify(
+            {
+                message: '<span>' + message + '</span>',
+                icon: 'nc-icon nc-app',
+                horizontalAlign: 'right',
+                verticalAlign: 'top',
+                type: type
             })
         },
         Back() {
