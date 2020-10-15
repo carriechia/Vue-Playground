@@ -7,6 +7,10 @@ function resolveSrc(_path) {
 
 module.exports = {
     devServer: {
+        host: 'localhost', // can be overwritten by process.env.HOST
+        port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+        https: false,
+        open: false,
 		proxy: {
             '/api': {
                 target: 'http://18.190.3.152/',
@@ -17,7 +21,7 @@ module.exports = {
                 }
             },
 		}
-	},
+    },
     lintOnSave: false,
     configureWebpack: {
         // Set up all the aliases we use in our app.
