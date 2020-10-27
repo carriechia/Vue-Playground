@@ -16,24 +16,25 @@ export function login(member) {
 }
 
 /**
- * 登出會員
+ * 登出會員 之後用到
  */
-export function logout() {
-      const url = '/api/logout'
-      return http.post(url).then(response => {
-          return Promise.resolve(response.data)
-        }).catch(err => {
-          alert("Logout Failed.")
-          throw err
-        })
-    }
+// export function logout() {
+//     const url = '/api/logout'
+//     return http.post(url).then(response => {
+//         return Promise.resolve(response.data)
+//       }).catch(err => {
+//         alert("Logout Failed.")
+//         throw err
+//       })
+//   }
+
 
 /**
  * 註冊會員
  * @param {*} member 註冊資料
  */
 export function register(member) {
-  const url = '/api/register'
+  const url = '/api/member'
   const data = Object.assign({}, member)
 
   return http.post(url, data).then(response => {

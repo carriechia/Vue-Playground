@@ -50,7 +50,7 @@
         methods: {
             init: function () {
                 list().then(res => {
-                    this.tableList.data = res
+                    this.tableList.data = res.data
                 }).catch(err => {
                     alert(err)
                     throw err

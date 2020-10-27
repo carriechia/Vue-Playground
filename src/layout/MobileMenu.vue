@@ -28,15 +28,32 @@
     </base-dropdown>
 
     <li class="nav-item">
-      <a class="nav-link" href="#pablo">
-        <span class="no-icon">Log out</span>
+      <a class="nav-link" @click.prevent="signout">
+        <span class="no-icon">Logout</span>
       </a>
     </li>
   </ul>
 </template>
 <script>
   export default {
-    name: 'mobile-menu'
+    name: 'mobile-menu',
+    methods: {
+        signout(){
+            localStorage.removeItem('token')
+            this.notifyVue("Logout Success.", "success")
+            this.$router.push('/login')
+        },
+        notifyVue (message, type) {
+            this.$notifications.notify(
+            {
+                message: '<span>' + message + '</span>',
+                icon: 'nc-icon nc-app',
+                horizontalAlign: 'right',
+                verticalAlign: 'top',
+                type: type
+            })
+        },
+    },
   }
 </script>
 <style>

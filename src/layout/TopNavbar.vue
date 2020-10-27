@@ -41,9 +41,7 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              Account
-            </a>
+            <router-link to="/admin/user">Account</router-link>
           </li>
           <base-dropdown title="Dropdown">
             <a class="dropdown-item" href="#">Action</a>
@@ -85,20 +83,19 @@ import {logout} from '@/api/member'
     },
     methods: {
       signout(){
-        // var token = localStorage.getItem("token")
         localStorage.removeItem('token')
+        this.notifyVue("Logout Success.", "success")
         this.$router.push('/login')
-        // logout(token).then(res => {
-        //     if (res.status === 200) {
-        //         localStorage.removeItem('token')
-        //         alert(res.message)
-        //         this.$router.push('/login')
-        //     } else {
-        //         alert("Logout Faild.")
-        //     }
-        // }).catch(err => {
-        //     throw err
-        // })
+      },
+      notifyVue (message, type) {
+        this.$notifications.notify(
+        {
+            message: '<span>' + message + '</span>',
+            icon: 'nc-icon nc-app',
+            horizontalAlign: 'right',
+            verticalAlign: 'top',
+            type: type
+        })
       },
       capitalizeFirstLetter (string) {
         return string.charAt(0).toUpperCase() + string.slice(1)

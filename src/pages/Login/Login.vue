@@ -41,14 +41,25 @@ import {login} from '@/api/member'
         }
         login(member).then(res => {
             if (res.status === 200) {
-                localStorage.setItem('token', res.headers.authorization)
-                alert("Login Success.")
+                localStorage.setItem('token', res.data.token)
+                this.notifyVue('Login Success.', 'success')
                 this.$router.push('/')
             } else {
-                alert("Login Failed.")
+                this.notifyVue('Login Failed.', 'warning');
             }
         }).catch(err => {
+            this.notifyVue('Login Failed.', 'danger');
             throw err
+        })
+    },
+    notifyVue (message, type) {
+        this.$notifications.notify(
+        {
+            message: '<span>' + message + '</span>',
+            icon: 'nc-icon nc-app',
+            horizontalAlign: 'right',
+            verticalAlign: 'top',
+            type: type
         })
     },
     onReset(evt) {
