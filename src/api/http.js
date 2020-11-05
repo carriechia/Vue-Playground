@@ -24,6 +24,8 @@ axios.interceptors.response.use(
         switch (error.response.status) {
             case 401:
             case 402: // 登入失敗或帳號密碼錯誤
+            case 405:
+            case 404:
             //清除token
 		    localStorage.removeItem('token')
 		    //重新登入
