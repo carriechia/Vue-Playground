@@ -1,10 +1,3 @@
-import http from './http';
-
-export function token() {
-    const url = 'token'
-    return http.get(url).then(response => {
-        return Promise.resolve(response.data)
-      }).catch(err => {
-        throw err
-      })
-}
+export const apiUrl = process.env.NODE_ENV === 'production'
+? 'http://18.190.3.152/'
+: '/api/'

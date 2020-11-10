@@ -61,9 +61,8 @@ export default {
             }
             register(member).then(res => {
                 if (res.status === 200) {
-                    localStorage.setItem('token', res.headers.authorization)
                     this.notifyVue('Register Success.', 'success');
-                    this.$router.push('/')
+                    this.$router.push('/login')
                 } else {
                     this.notifyVue('Register Failed.', 'warning');
                 }

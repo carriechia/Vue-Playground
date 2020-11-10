@@ -4,7 +4,7 @@ import routers from '../routes/routes';
 // http request 攔截器
 axios.interceptors.request.use(
   config => {
-    if (localStorage.token) { //判断token是否存在
+    if (typeof(localStorage.token) !== 'undefined') { //判断token是否存在
       config.headers.Authorization = 'Bearer ' + localStorage.token;
     }
     return config;

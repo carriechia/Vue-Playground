@@ -1,11 +1,12 @@
 import http from './http';
+import { apiUrl } from '@/api/common.js'
 
 /**
  * 登入會員
  * @param {*} member 登入資料
  */
 export function login(member) {
-    const url = '/api/login'
+    const url = `${apiUrl}login`
     const data = Object.assign({}, member)
 
     return http.post(url, data).then(response => {
@@ -34,7 +35,7 @@ export function login(member) {
  * @param {*} member 註冊資料
  */
 export function register(member) {
-  const url = '/api/member'
+  const url = `${apiUrl}member`
   const data = Object.assign({}, member)
 
   return http.post(url, data).then(response => {
@@ -49,7 +50,7 @@ export function register(member) {
  * 取得會員資料
  */
 export function list() {
-    const url = '/api/members'
+    const url = `${apiUrl}members`
     return http.get(url).then(response => {
         return Promise.resolve(response.data)
       }).catch(err => {
