@@ -55,7 +55,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) =>
 {
     if (to.meta.requireAuth) {
-      if (localStorage.token !== 'undefined') {
+      if (typeof localStorage.token !== 'undefined') {
         console.log("has token");
         next();
       } else {
