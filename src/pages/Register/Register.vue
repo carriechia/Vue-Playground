@@ -1,5 +1,5 @@
 <template>
-<div id="register">
+<div>
     <form class="form-register">
         <h3>Register Your Account</h3>
         <div class="row">
@@ -40,7 +40,6 @@
 </template>
 <script>
 import {register} from '@/api/member'
-import {checkForm} from '@/api/member'
 
 export default {
     data () {
@@ -53,21 +52,13 @@ export default {
         }
     },
     methods: {
-        Save: function(e) {
-            e.preventDefault();
+        Save() {
             var self = this;
             const member = {
                 email: self.user.email,
                 name: self.user.name,
                 password: self.user.password
             }
-
-            var messageArray = checkForm(member);
-            if (messageArray.length > 0) {
-                this.notifyVue(messageArray.join("<br/>"), 'danger');
-                return false;
-            }
-
             register(member).then(res => {
                 if (res.status === 200) {
                     this.notifyVue('Register Success.', 'success');
@@ -97,11 +88,20 @@ export default {
 }
 </script>
 <style>
-    #register {
-      margin:0 auto;
-    }
     .form-register {
+        width: 100%;
         padding: 15px;
+        margin: auto;
+    }
+    .form-register .form-control {
+        position: relative;
+        box-sizing: border-box;
+        height: auto;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .form-register .form-control:focus {
+        z-index: 2;
     }
     .form-register input[type="email"] {
         margin-bottom: -1px;
@@ -114,6 +114,6 @@ export default {
         border-top-right-radius: 0;
     }
     button {
-        margin: 10px;
-    }
+    margin: 10px;
+}
 </style>

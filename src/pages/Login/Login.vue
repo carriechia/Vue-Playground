@@ -22,7 +22,6 @@
 
 <script>
 import {login} from '@/api/member'
-import {checkForm} from '@/api/member'
 
   export default {
     data() {
@@ -35,19 +34,6 @@ import {checkForm} from '@/api/member'
     },
     methods: {
       Singin() {
-      Singin: function(e) {
-        e.preventDefault();
-        var self = this;
-        const member = {
-            email: self.form.email,
-            password: self.form.password
-        }
-        var messageArray = checkForm(member);
-        if (messageArray.length > 0) {
-            this.notifyVue(messageArray.join("<br/>"), 'danger');
-            return false;
-        }
-
         var self = this;
         const member = {
             email: self.form.email,

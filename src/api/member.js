@@ -57,36 +57,3 @@ export function list() {
         throw err
       })
 }
-
-/**
- * Login Register 稽核
- * @param {*} data 欄位
- */
-export function checkForm (data) {
-    const errors = [];
-    const checkEmail = data.email;
-
-    if (checkEmail === "") {
-        errors.push("Email required.");
-    } else if (! validEmail(checkEmail)) {
-        errors.push("Valid email required.");
-    }
-
-    if (data.password === "") {
-        errors.push("Password required.");
-    }
-
-    if (data.name === "") {
-        errors.push("Name required.");
-    }
-
-    return errors;
-}
-
-/**
- * email 驗證
- */
-function validEmail (email) {
-    var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email);
-}
