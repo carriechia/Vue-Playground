@@ -40,6 +40,7 @@
 </template>
 <script>
 import {register} from '@/api/member'
+import {checkForm} from '@/api/member'
 
 export default {
     data () {
