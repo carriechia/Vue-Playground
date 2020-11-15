@@ -22,6 +22,7 @@
 
 <script>
 import {login} from '@/api/member'
+import {checkForm} from '@/api/member'
 
   export default {
     data() {
@@ -33,12 +34,19 @@ import {login} from '@/api/member'
       }
     },
     methods: {
-      Singin() {
+      Singin: function(e) {
+        e.preventDefault();
         var self = this;
         const member = {
             email: self.form.email,
             password: self.form.password
         }
+        var messageArray = checkForm(member);
+        if (messageArray.length > 0) {
+            this.notifyVue(messageArray.join("<br/>"), 'danger');
+            return false;
+        }
+
         login(member).then(res => {
             if (res.status === 200) {
                 localStorage.setItem('token', res.data.token)
@@ -92,9 +100,11 @@ body {
   padding: 15px;
   margin: auto;
 }
+
 .form-signin .checkbox {
   font-weight: 400;
 }
+
 .form-signin .form-control {
   position: relative;
   box-sizing: border-box;
@@ -102,22 +112,27 @@ body {
   padding: 10px;
   font-size: 16px;
 }
+
 .form-signin .form-control:focus {
   z-index: 2;
 }
+
 .form-signin input[type="email"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
+
 .form-signin input[type="password"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-.login_btn {
+
+.login_btn, .fb-login-button {
   text-align:center;
 }
+
 .login_btn button {
     margin: 10px;
 }

@@ -52,13 +52,21 @@ export default {
         }
     },
     methods: {
-        Save() {
+        Save: function(e) {
+            e.preventDefault();
             var self = this;
             const member = {
                 email: self.user.email,
                 name: self.user.name,
                 password: self.user.password
             }
+
+            var messageArray = checkForm(member);
+            if (messageArray.length > 0) {
+                this.notifyVue(messageArray.join("<br/>"), 'danger');
+                return false;
+            }
+
             register(member).then(res => {
                 if (res.status === 200) {
                     this.notifyVue('Register Success.', 'success');
