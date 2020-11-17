@@ -32,7 +32,12 @@ module.exports = {
         // Enable CSS source maps.
         sourceMap: process.env.NODE_ENV !== 'production'
     },
+    // 顯示在 gitpages 上
+    // publicPath: process.env.NODE_ENV === 'production'
+    //   ? 'https://carriechia.github.io/vue-sample/'
+    //   : '/'
+    // 顯示在 aws 上
     publicPath: process.env.NODE_ENV === 'production'
-      ? 'https://carriechia.github.io/vue-sample/'
+      ? 'http://carrie-vue-exercises.s3-website.us-east-2.amazonaws.com/'
       : '/'
 };
