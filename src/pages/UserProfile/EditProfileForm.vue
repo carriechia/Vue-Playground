@@ -3,22 +3,14 @@
     <h4 slot="header" class="card-title">Edit Profile</h4>
     <form>
       <div class="row">
-        <div class="col-md-5">
-          <base-input type="text"
-                    label="Company"
-                    :disabled="true"
-                    placeholder="Light dashboard"
-                    v-model="user.company">
-          </base-input>
-        </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <base-input type="text"
                     label="Username"
                     placeholder="Username"
-                    v-model="user.username">
+                    v-model="user.name">
           </base-input>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
           <base-input type="email"
                     label="Email"
                     placeholder="Email"
@@ -28,18 +20,11 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <base-input type="text"
-                    label="First Name"
-                    placeholder="First Name"
-                    v-model="user.firstName">
-          </base-input>
-        </div>
-        <div class="col-md-6">
-          <base-input type="text"
-                    label="Last Name"
-                    placeholder="Last Name"
-                    v-model="user.lastName">
+                    label="Nickname"
+                    placeholder="Nickname"
+                    v-model="user.nickname">
           </base-input>
         </div>
       </div>
@@ -100,6 +85,7 @@
 </template>
 <script>
   import Card from 'src/components/Cards/Card.vue'
+  import {memberProfile} from '@/api/member'
 
   export default {
     components: {
@@ -108,23 +94,24 @@
     data () {
       return {
         user: {
-          company: 'Light dashboard',
-          username: 'michael23',
+          name: '',
           email: '',
-          firstName: 'Mike',
-          lastName: 'Andrew',
-          address: 'Melbourne, Australia',
-          city: 'melbourne',
-          country: 'Australia',
-          postalCode: '',
-          aboutMe: `Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.`
+          nickname: '',
         }
       }
     },
     methods: {
-      updateProfile () {
-        alert('Your data: ' + JSON.stringify(this.user))
-      }
+        init: function () {
+            memberProfile().then(res => {
+                this.user = res;
+            }).catch(err => {
+                alert(err)
+                throw err
+            })
+        },
+    },
+    mounted: function () {
+        this.init()
     }
   }
 

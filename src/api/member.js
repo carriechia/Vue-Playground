@@ -58,6 +58,18 @@ export function list() {
 }
 
 /**
+ * 取得會員資料
+ */
+export function memberProfile() {
+    const url = '/profile'
+    return http.get(url).then(response => {
+        return Promise.resolve(response.data)
+    }).catch(err => {
+        throw err
+    })
+}
+
+/**
  * Login Register 稽核
  * @param {*} data 欄位
  */

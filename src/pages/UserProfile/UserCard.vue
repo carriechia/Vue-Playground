@@ -5,15 +5,12 @@
       <a href="#">
         <img class="avatar border-gray" src="img/faces/face-3.jpg" alt="..."/>
 
-        <h4 class="title">Mike Andrew<br />
-          <small>michael24</small>
+        <h4 class="title">{{user.name}}<br />
+          <small>{{user.nickname}}</small><br />
+          <small>{{user.email}}</small>
         </h4>
       </a>
     </div>
-    <p class="description text-center"> "Lamborghini Mercy <br>
-      Your chick she so thirsty <br>
-      I'm in that two seat Lambo"
-    </p>
     <div slot="footer" class="text-center d-flex justify-content-center">
       <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
       <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
@@ -23,6 +20,8 @@
 </template>
 <script>
   import Card from 'src/components/Cards/Card.vue'
+  import {memberProfile} from '@/api/member'
+
   export default {
     components: {
       Card
@@ -42,7 +41,12 @@
             title: '24,6$',
             subTitle: 'Spent'
           }
-        ]
+        ],
+        user: {
+          name: '',
+          email: '',
+          nickname: '',
+        }
       }
     },
     methods: {
@@ -55,7 +59,18 @@
         } else {
           return 'col-md-3'
         }
-      }
+      },
+      init: function () {
+            memberProfile().then(res => {
+                this.user = res;
+            }).catch(err => {
+                alert(err)
+                throw err
+            })
+        },
+    },
+    mounted: function () {
+        this.init()
     }
   }
 

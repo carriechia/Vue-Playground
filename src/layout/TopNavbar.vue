@@ -40,6 +40,7 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item">Hello, {{user.name}}</li>
           <li class="nav-item">
             <router-link to="/admin/user">Account</router-link>
           </li>
@@ -63,7 +64,7 @@
   </nav>
 </template>
 <script>
-import {logout} from '@/api/member'
+import {logout,memberProfile} from '@/api/member'
 
   export default {
     computed: {
@@ -78,7 +79,10 @@ import {logout} from '@/api/member'
     },
     data () {
       return {
-        activeNotifications: false
+        activeNotifications: false,
+        user: {
+          name: '',
+        }
       }
     },
     methods: {
@@ -86,6 +90,14 @@ import {logout} from '@/api/member'
         localStorage.removeItem('token')
         this.notifyVue("Logout Success.", "success")
         this.$router.push('/login')
+      },
+      profile() {
+          memberProfile().then(res => {
+                this.user.name = res.name;
+            }).catch(err => {
+                alert(err)
+                throw err
+            })
       },
       notifyVue (message, type) {
         this.$notifications.notify(
@@ -112,10 +124,15 @@ import {logout} from '@/api/member'
       hideSidebar () {
         this.$sidebar.displaySidebar(false)
       }
+    },
+    mounted: function () {
+        this.profile()
     }
   }
 
 </script>
 <style>
-
+    .nav-item {
+        margin-right:15px;
+    }
 </style>
