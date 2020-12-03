@@ -6,7 +6,12 @@
 </template>
 
 <script>
-  export default {}
+import facebookSDK from '@/facebook_sdk'
+  export default {
+    mounted: function () {
+        facebookSDK.created();
+    }
+  }
 </script>
 <style lang="scss">
   .vue-notifyjs.notifications{

@@ -1,0 +1,21 @@
+language: node_js
+# nodejs版本
+node_js:
+    - '14.4.0'
+
+install:
+- npm install
+
+script:
+- npm run build
+
+after_script:
+  - cd ./dist
+  - git init
+  - git add .
+  - git commit -m "Travis auto deploy."
+  - git push --force --quiet "https://${GIT_TOKEN}@${GIT_REPOSITORY}" master:${GIT_PAGES}
+
+branches:
+  only:
+    - master

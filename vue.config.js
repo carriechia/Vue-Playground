@@ -6,6 +6,12 @@ function resolveSrc(_path) {
 }
 
 module.exports = {
+    devServer: {
+        // disableHostCheck: true,//ngrok 用
+        port: 8080,
+		host: "localhost",
+		https: true,
+    },
     lintOnSave: false,
     configureWebpack: {
         // Set up all the aliases we use in our app.

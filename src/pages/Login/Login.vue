@@ -17,12 +17,27 @@
         <button class="btn btn-info btn-fill" v-on:click="onReset">Reset</button>
         <router-link to="/register" tag="button" class="btn btn-info btn-fill">Rigister</router-link>
     </div>
+    <div class="community_login">
+        <li class="community_login_line"></li>
+        <p class="community_login_title">Community Login</p>
+    </div>
+    <div class="social_group">
+        <div class="fb-login-button"
+            data-size="medium"
+            data-button-type="login_with"
+            data-layout="default"
+            data-auto-logout-link="true"
+            data-use-continue-as="false"
+            data-width="" data-onlogin="checkLoginState();">
+        </div>
+    </div>
   </div>
 </template>
 
 <script>
 import {login} from '@/api/member'
 import {checkForm} from '@/api/member'
+import {checkFacebookLoginStatus} from '@/facebook_sdk'
 
   export default {
     data() {
@@ -59,23 +74,23 @@ import {checkForm} from '@/api/member'
             this.notifyVue('Login Failed.', 'danger');
             throw err
         })
-    },
-    notifyVue (message, type) {
-        this.$notifications.notify(
-        {
-            message: '<span>' + message + '</span>',
-            icon: 'nc-icon nc-app',
-            horizontalAlign: 'right',
-            verticalAlign: 'top',
-            type: type
-        })
-    },
-    onReset(evt) {
+      },
+      notifyVue (message, type) {
+            this.$notifications.notify(
+            {
+                message: '<span>' + message + '</span>',
+                icon: 'nc-icon nc-app',
+                horizontalAlign: 'right',
+                verticalAlign: 'top',
+                type: type
+            })
+      },
+      onReset(evt) {
         evt.preventDefault()
         // Reset our form values
         this.form.email = ''
         this.form.password = ''
-      }
+      },
     },
   }
 </script>
@@ -129,11 +144,45 @@ body {
   border-top-right-radius: 0;
 }
 
-.login_btn, .fb-login-button {
+.login_btn {
   text-align:center;
 }
 
 .login_btn button {
     margin: 10px;
+}
+
+.social_group {
+    margin: 0;
+    text-align: center;
+}
+
+.community_login {
+    width:50%;
+    position: relative;
+    height: 1.875rem;
+    line-height: 1.875rem;
+    margin: 26px auto 20px;
+    text-align: center;
+}
+
+.community_login_line {
+    display: block;
+    height: 1px;
+    background: #e7e7e7;
+    position: absolute;
+    top: 1rem;
+    width: 100%;
+}
+
+.community_login_title {
+    display: inline-block;
+    font-size: 10px;
+    color: #929699;
+    padding: 0 .8rem;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    background-color: #fff;
 }
 </style>
