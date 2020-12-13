@@ -48,8 +48,9 @@ export function register(member) {
 /**
  * 取得會員資料
  */
-export function list() {
-    const url = '/members'
+export function list(page) {
+    const url = '/members?page=' + page
+
     return http.get(url).then(response => {
         return Promise.resolve(response.data)
       }).catch(err => {

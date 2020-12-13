@@ -1,6 +1,5 @@
 export default {
     created() {
-        console.log(123)
         window.fbAsyncInit = function() {
             FB.init({
                 appId      : '2346061822076325',

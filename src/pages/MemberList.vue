@@ -8,7 +8,7 @@
               <h4 class="card-title">Member List</h4>
             </template>
             <div>
-                <b-table striped hover :items="tableList.data" :fields="tableList.columns">
+                <b-table  id="my-table" striped hover :items="tableList.data" :fields="tableList.columns">
                     <template v-slot:cell(source)="data">
                          <template v-if="data.value==1">
                              <h4><b-badge variant="success">一般註冊</b-badge></h4>
@@ -18,11 +18,18 @@
                         </template>
                     </template>
                 </b-table>
-                 <div class="mt-3">
-                    <b-pagination-nav pills size="lg" number-of-pages="10" base-url="#" align="center"></b-pagination-nav>
-                </div>
             </div>
           </card>
+          <b-pagination
+                @change="onPageChanged"
+                v-model="currentPage"
+                :total-rows="rows"
+                :per-page="perPage"
+                aria-controls="my-table"
+                align="center"
+                size="lg"
+                hide-goto-end-buttons
+            ></b-pagination>
         </div>
       </div>
     </div>
@@ -33,32 +40,40 @@
     import Card from 'src/components/Cards/Card.vue'
     import {list} from '@/api/member'
 
-    //定義table欄位
     export default {
         components: {
             LTable,
             Card
         },
         data () {
-        return {
-            tableList: {
-                columns: ['email', 'id', 'name', 'nickname', 'source'],
-                data: []
-            },
-        }
+            return {
+                currentPage: 1,
+                perPage: 0,
+                rows: 0,
+                tableList: {
+                    columns: ['email', 'id', 'name', 'nickname', 'source'],
+                    data: []
+                },
+            }
         },
         methods: {
-            init: function () {
-                list().then(res => {
+            paginate(page) {
+                list(page).then(res => {
+                    this.currentPage = res.current_page //目前頁數
+                    this.perPage = res.per_page //幾筆
+                    this.rows = res.total //總共幾筆
                     this.tableList.data = res.data
                 }).catch(err => {
                     alert(err)
                     throw err
                 })
             },
+            onPageChanged(page) {
+                this.paginate(page);
+            }
         },
-        mounted: function () {
-            this.init()
+        created: function(){
+            this.paginate(this.currentPage)
         }
     }
 </script>
