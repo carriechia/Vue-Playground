@@ -22,6 +22,7 @@
     "register-service-worker": "^1.5.2",
     "v-tooltip": "^2.0.0-rc.33",
     "vue": "^2.6.12",
+    "vue-google-login": "^2.0.5",
     "vue-router": "^3.4.3",
     "vue2-google-maps": "^0.8.4"
   },

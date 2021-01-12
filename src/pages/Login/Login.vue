@@ -30,6 +30,9 @@
             data-use-continue-as="false"
             data-width="" data-onlogin="checkLoginState();">
         </div>
+        <div>
+            <GoogleLogin :params="params" :onSuccess="onSuccess">Google Login</GoogleLogin>
+        </div>
     </div>
   </div>
 </template>
@@ -38,6 +41,7 @@
 import {login} from '@/api/member'
 import {checkForm} from '@/api/member'
 import {checkFacebookLoginStatus} from '@/facebook_sdk'
+import GoogleLogin from 'vue-google-login';
 
   export default {
     data() {
@@ -46,6 +50,16 @@ import {checkFacebookLoginStatus} from '@/facebook_sdk'
           email: '',
           password: '',
         },
+        // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
+        params: {
+            client_id: "53523701963-lb22g2eumu3187nkgrltfl8jivme1ite.apps.googleusercontent.com"
+        },
+        // only needed if you want to render the button with the google ui
+        renderParams: {
+            width: 250,
+            height: 50,
+            longtitle: true,
+        }
       }
     },
     methods: {
@@ -91,7 +105,16 @@ import {checkFacebookLoginStatus} from '@/facebook_sdk'
         this.form.email = ''
         this.form.password = ''
       },
+      onSuccess(googleUser) {
+            console.log(googleUser);
+
+            // This only gets the user information: id, name, imageUrl and email
+            console.log(googleUser.getBasicProfile());
+      },
     },
+    components: {
+        GoogleLogin
+    }
   }
 </script>
 <style scoped>
@@ -153,8 +176,11 @@ body {
 }
 
 .social_group {
-    margin: 0;
     text-align: center;
+}
+
+.social_group div {
+    margin: 0px auto;
 }
 
 .community_login {
