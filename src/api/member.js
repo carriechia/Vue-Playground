@@ -1,4 +1,5 @@
 import http from './http';
+import Vue from 'vue'
 
 /**
  * 登入會員
@@ -101,4 +102,34 @@ export function checkForm (data) {
 function validEmail (email) {
     var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
+}
+
+/** 第三方驗證 */
+
+/**
+ * google 會員登入
+ * @param {*} member 登入資料
+ */
+export function googleLogin(member) {
+    const url = '/google/login'
+    const data = Object.assign({}, member)
+
+    return http.post(url, data).then(response => {
+        return Promise.resolve(response)
+    }).catch(err => {
+        throw err
+    })
+}
+
+/**
+ * google 會員登出
+ * @param {*} member 登入資料
+ */
+export function googleLogout() {
+    var result = true;
+    Vue.GoogleAuth.then(auth2 => {
+        auth2.signOut();
+        result = ! auth2.isSignedIn.get()
+    })
+    return result
 }

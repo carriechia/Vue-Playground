@@ -7,7 +7,9 @@
 
         <h4 class="title">{{user.name}}<br />
           <small>{{user.nickname}}</small><br />
-          <small>{{user.email}}</small>
+          <small>{{user.email}}</small><br />
+          <small v-if="user.source==2">Google Login</small>
+          <small v-if="user.source==1">General Login</small>
         </h4>
       </a>
     </div>

@@ -39,6 +39,7 @@
 
 <script>
 import {login} from '@/api/member'
+import {googleLogin} from '@/api/member'
 import {checkForm} from '@/api/member'
 import {checkFacebookLoginStatus} from '@/facebook_sdk'
 import GoogleLogin from 'vue-google-login';
@@ -52,7 +53,7 @@ import GoogleLogin from 'vue-google-login';
         },
         // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
         params: {
-            client_id: "53523701963-lb22g2eumu3187nkgrltfl8jivme1ite.apps.googleusercontent.com"
+            client_id: this.$googleConfig.client_id,
         },
         // only needed if you want to render the button with the google ui
         renderParams: {
@@ -106,10 +107,26 @@ import GoogleLogin from 'vue-google-login';
         this.form.password = ''
       },
       onSuccess(googleUser) {
-            console.log(googleUser);
+            var profile = googleUser.getBasicProfile()
+            var id_token = googleUser.getAuthResponse().id_token
 
-            // This only gets the user information: id, name, imageUrl and email
-            console.log(googleUser.getBasicProfile());
+            var member = {
+                email: profile.getEmail(),
+                name: profile.getName(),
+                token: id_token,
+            }
+            googleLogin(member).then(res => {
+                if (res.status === 200) {
+                    localStorage.setItem('token', res.data.token)
+                    this.notifyVue('Login Success.', 'success')
+                    this.$router.push('/')
+                } else {
+                    this.notifyVue('Login Failed.', 'warning');
+                }
+            }).catch(err => {
+                this.notifyVue('Login Failed.', 'danger');
+                throw err
+            })
       },
     },
     components: {

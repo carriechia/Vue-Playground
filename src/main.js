@@ -30,6 +30,10 @@ import routes from './routes/routes'
 
 import './registerServiceWorker'
 
+import googleConfig from './google_api_config'
+Vue.prototype.$googleConfig = googleConfig
+import { LoaderPlugin } from 'vue-google-login';
+
 // plugin setup
 Vue.use(VueRouter)
 Vue.use(LightBootstrap)
@@ -37,6 +41,8 @@ Vue.use(LightBootstrap)
 Vue.use(BootstrapVue);
 // 安裝 BootstrapVue icon components plugin (可選)
 Vue.use(IconsPlugin);
+
+Vue.use(LoaderPlugin, googleConfig);
 
 // configure router
 const router = new VueRouter({

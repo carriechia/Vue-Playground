@@ -64,7 +64,7 @@
   </nav>
 </template>
 <script>
-import {logout,memberProfile} from '@/api/member'
+import {googleLogout,memberProfile} from '@/api/member'
 
   export default {
     computed: {
@@ -82,11 +82,19 @@ import {logout,memberProfile} from '@/api/member'
         activeNotifications: false,
         user: {
           name: '',
+          source: ''
         }
       }
     },
     methods: {
       signout(){
+        if (this.user.source === 2) {
+            var logout = googleLogout() // 回傳是否有登入者
+            if(!logout) {
+                this.notifyVue("Logout Failed.", "warning")
+                return false;
+            }
+        }
         localStorage.removeItem('token')
         this.notifyVue("Logout Success.", "success")
         this.$router.push('/login')
@@ -94,6 +102,7 @@ import {logout,memberProfile} from '@/api/member'
       profile() {
           memberProfile().then(res => {
                 this.user.name = res.name;
+                this.user.source = res.source;
             }).catch(err => {
                 alert(err)
                 throw err
